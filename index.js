@@ -25,10 +25,20 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
 
 // Routes
 
-// 1. Get all items
+// 1. Get test item
 app.get("/users", async (req, res) => {
   try {
     const items = await db.collection("ThongTinUser").find().toArray();
+    res.status(200).json(items);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch items" });
+  }
+});
+
+// 2. Get all customer
+app.get("/customer", async (req, res) => {
+  try {
+    const items = await db.collection("Customer").find().toArray();
     res.status(200).json(items);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch items" });
