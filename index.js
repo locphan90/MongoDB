@@ -3,7 +3,7 @@ const { MongoClient, ObjectId } = require("mongodb");
 const bodyParser = require("body-parser");
 
 const app = express();
-const port = 10000;
+const port = 3000;
 
 // Middleware
 app.use(bodyParser.json());
@@ -39,6 +39,16 @@ app.get("/users", async (req, res) => {
 app.get("/customer", async (req, res) => {
   try {
     const items = await db.collection("Customer").find().toArray();
+    res.status(200).json(items);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch items" });
+  }
+});
+
+// 2. Get all customer
+app.get("/supplier", async (req, res) => {
+  try {
+    const items = await db.collection("Supplier").find().toArray();
     res.status(200).json(items);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch items" });
